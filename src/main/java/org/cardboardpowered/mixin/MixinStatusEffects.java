@@ -1,5 +1,6 @@
 package org.cardboardpowered.mixin;
 
+import com.javazilla.bukkitfabric.BukkitFabricMod;
 import org.spongepowered.asm.mixin.Mixin;
 
 import org.cardboardpowered.impl.CardboardPotionEffectType;
@@ -13,7 +14,12 @@ public class MixinStatusEffects {
 
     static {
         for (Object effect : Registry.STATUS_EFFECT) {
-            org.bukkit.potion.PotionEffectType.registerPotionEffectType(new CardboardPotionEffectType((StatusEffect) effect));
+            CardboardPotionEffectType cardboardPotionEffectType = new CardboardPotionEffectType((StatusEffect) effect);
+            try {
+                org.bukkit.potion.PotionEffectType.registerPotionEffectType(cardboardPotionEffectType);
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                BukkitFabricMod.LOGGER.warning("Error in Bukkit PotionEffectType#registerPotionEffectType for " + cardboardPotionEffectType.getName() + " [" + cardboardPotionEffectType.getId() + "]");
+            }
         }
     }
 
