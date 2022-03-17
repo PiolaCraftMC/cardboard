@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.block.CraftBlock;
-import org.bukkit.event.block.BlockPistonEvent;
+//import org.bukkit.event.block.BlockPistonEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.spongepowered.asm.mixin.Mixin;
@@ -59,6 +59,7 @@ public class MixinPistonBlock {
                 return bblock.getWorld().getBlockAt(pos.getX(), pos.getY(), pos.getZ());
             }
         };
+        /*
         BlockPistonEvent event = retract ? new BlockPistonExtendEvent(bblock, blocks, CraftBlock.notchToBlockFace(enumdirection1)) 
                         : new BlockPistonRetractEvent(bblock, blocks, CraftBlock.notchToBlockFace(enumdirection1));
         CraftServer.INSTANCE.getPluginManager().callEvent(event);
@@ -74,6 +75,7 @@ public class MixinPistonBlock {
             ci.setReturnValue(false);
             return;
         }
+         // DocFork - TODO: This is for avoid a error for use BlockPistonExtendEvent */
     }
 
 }

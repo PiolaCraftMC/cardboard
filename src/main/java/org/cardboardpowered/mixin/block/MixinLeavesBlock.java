@@ -3,7 +3,7 @@ package org.cardboardpowered.mixin.block;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
-import org.bukkit.event.block.LeavesDecayEvent;
+//import org.bukkit.event.block.LeavesDecayEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,6 +22,8 @@ public class MixinLeavesBlock {
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/block/LeavesBlock;dropStacks(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"),
             method = "randomTick", cancellable = true)
     public void cardboard_doLeavesDecayEvent(BlockState state, ServerWorld world, BlockPos pos, Random r, CallbackInfo ci) {
+
+        /*
         LeavesDecayEvent event = new LeavesDecayEvent(((IMixinWorld)world).getWorldImpl().getBlockAt(pos.getX(), pos.getY(), pos.getZ()));
         Bukkit.getPluginManager().callEvent(event);
 
@@ -29,6 +31,7 @@ public class MixinLeavesBlock {
             ci.cancel();
             return;
         }
+         // DocFork - TODO: This is for avoid a error for use LeavesDecayEvent */
     }
 
 }
